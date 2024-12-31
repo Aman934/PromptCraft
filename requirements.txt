@@ -1,0 +1,7 @@
+streamlit 
+huggingface_hub 
+diffusers 
+torch 
+torchvision 
+pillow
+os
