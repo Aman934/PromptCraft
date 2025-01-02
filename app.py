@@ -19,7 +19,7 @@ def load_pipeline(api_token):
     try:
         pipeline = StableDiffusionPipeline.from_pretrained(
             "runwayml/stable-diffusion-v1-5",
-            use_auth_token=api_token
+            use_auth_token=API_TOKEN
         )
         device = "cuda" if torch.cuda.is_available() else "cpu"
         pipeline.to(device)
