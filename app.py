@@ -17,10 +17,12 @@ def load_pipeline(api_token):
     Caches the pipeline for reuse across app reruns.
     """
     try:
+        # Use the API token correctly in the Hugging Face pipeline
         pipeline = StableDiffusionPipeline.from_pretrained(
             "runwayml/stable-diffusion-v1-5",
-            use_auth_token=API_TOKEN
+            use_auth_token=api_token
         )
+        # Use CPU if CUDA (GPU) is not available
         device = "cuda" if torch.cuda.is_available() else "cpu"
         pipeline.to(device)
         return pipeline
@@ -35,6 +37,7 @@ def generate_image(pipeline, prompt):
     """
     try:
         with st.spinner("Generating image..."):
+            # Generate the image based on the prompt
             image = pipeline(prompt).images[0]
         return image
     except Exception as e:
