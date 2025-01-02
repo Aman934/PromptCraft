@@ -2,12 +2,9 @@ import streamlit as st
 from diffusers import StableDiffusionPipeline
 import torch
 from PIL import Image
-from dotenv import load_dotenv
-import os
 
-# Load environment variables from .env file
-load_dotenv()
-API_TOKEN = os.getenv("HUGGINGFACE_API_KEY")
+# Access Hugging Face API Token from Streamlit Secrets
+API_TOKEN = st.secrets["HUGGINGFACE_API_KEY"]
 
 # Initialize the Stable Diffusion pipeline
 @st.cache_resource
@@ -17,7 +14,6 @@ def load_pipeline(api_token):
     Caches the pipeline for reuse across app reruns.
     """
     try:
-        # Use the API token correctly in the Hugging Face pipeline
         pipeline = StableDiffusionPipeline.from_pretrained(
             "runwayml/stable-diffusion-v1-5",
             use_auth_token=api_token
@@ -37,7 +33,6 @@ def generate_image(pipeline, prompt):
     """
     try:
         with st.spinner("Generating image..."):
-            # Generate the image based on the prompt
             image = pipeline(prompt).images[0]
         return image
     except Exception as e:
@@ -51,7 +46,7 @@ def main():
 
     # Check if the API token is available
     if not API_TOKEN:
-        st.error("Hugging Face API token is missing. Please add it to the .env file.")
+        st.error("Hugging Face API token is missing. Please add it to the secrets.")
         st.stop()
 
     # Prompt input
