@@ -3,3 +3,4 @@ diffusers
 torch
 pillow
 python-dotenv
+transformers
