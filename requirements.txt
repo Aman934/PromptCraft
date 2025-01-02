@@ -1,7 +1,5 @@
-streamlit 
-diffusers 
-torch 
-torchvision 
+streamlit
+diffusers
+torch
 pillow
-os
-dotenv 
+python-dotenv
